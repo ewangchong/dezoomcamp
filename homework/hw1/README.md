@@ -20,3 +20,61 @@ WHERE
 GROUP BY
 	DISTANCE_CATEGORY
 ~~~
+## Question 4:
+~~~sql
+WITH daily_max_distance AS (
+    SELECT
+        DATE(lpep_pickup_datetime) AS pickup_day,
+        MAX(trip_distance) AS max_distance
+    FROM
+        public.green_taxi_data
+    GROUP BY
+        DATE(lpep_pickup_datetime)
+)
+SELECT
+    pickup_day,
+    max_distance
+FROM
+    daily_max_distance
+ORDER BY
+    max_distance DESC
+LIMIT 1;
+~~~
+## Question 5:
+~~~sql
+SELECT
+    z."Borough",
+    z."Zone",
+    SUM(g.total_amount) AS total_amount
+FROM
+    public.green_taxi_data g
+JOIN
+    public.zones z ON g."PULocationID" = z."LocationID"
+WHERE
+    DATE(g.lpep_pickup_datetime) = '2019-10-18'
+GROUP BY
+    z."Borough", z."Zone"
+HAVING
+    SUM(g.total_amount) > 13000
+ORDER BY
+    total_amount DESC;
+~~~
+## Question 6:
+~~~sql
+SELECT
+    dz."Zone" AS dropoff_zone,
+    g.tip_amount AS tip
+FROM
+    public.green_taxi_data g
+JOIN
+    public.zones pz ON g."PULocationID" = pz."LocationID"
+JOIN
+    public.zones dz ON g."DOLocationID" = dz."LocationID"
+WHERE
+    pz."Zone" = 'East Harlem North'
+    AND g.lpep_pickup_datetime >= '2019-10-01'
+	AND g.lpep_pickup_datetime < '2019-11-01'
+ORDER BY
+    g.tip_amount DESC
+LIMIT 1
+~~~
