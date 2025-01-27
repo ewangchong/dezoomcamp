@@ -1,6 +1,8 @@
 # dezoomcamp
 ## Question 1:
 pip -V
+## Question 2:
+N/A
 ## Question 3:
 ~~~sql
 SELECT
@@ -78,3 +80,5 @@ ORDER BY
     g.tip_amount DESC
 LIMIT 1
 ~~~
+## Question 7:
+N/A
