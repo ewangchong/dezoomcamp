@@ -3,6 +3,7 @@ OPTIONS (
     format = 'PARQUET',
     uris = ['gs://dezoomcamp_hw3_2025_bob_va_1/yellow_tripdata_2024-*.parquet']
 );
+
 CREATE MATERIALIZED VIEW `hw3.yellow_taxi_trips_mv`
 AS
 SELECT * FROM `hw3.yellow_taxi_trips`;
